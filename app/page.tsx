@@ -22,7 +22,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4">
             <Link 
-              href="/matchday" 
+              href="/register" 
               className="bg-[#ccff00] text-black font-bold uppercase tracking-wide py-4 px-8 rounded-full hover:bg-[#b3e600] transition-all transform active:scale-95 flex items-center justify-center"
             >
               Join This Week's Match
