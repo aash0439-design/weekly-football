@@ -1,3 +1,4 @@
+import MatchCard from "@/components/match/MatchCard";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -22,7 +23,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4">
             <Link 
-              href="/register" 
+              href="/matchday" 
               className="bg-[#ccff00] text-black font-bold uppercase tracking-wide py-4 px-8 rounded-full hover:bg-[#b3e600] transition-all transform active:scale-95 flex items-center justify-center"
             >
               Join This Week's Match
@@ -39,41 +40,8 @@ export default function HomePage() {
 
       {/* 2. Upcoming Match Section */}
       <section className="py-12 px-4 max-w-5xl mx-auto w-full relative z-10">
-        <div className="bg-[#111111] border border-zinc-800 rounded-3xl p-8 md:p-10 relative overflow-hidden backdrop-blur-sm shadow-2xl">
-          <div className="absolute top-0 right-0 bg-[#ccff00]/10 text-[#ccff00] text-xs font-bold px-5 py-2 rounded-bl-2xl border-l border-b border-[#ccff00]/20 uppercase tracking-widest">
-            2 Days Left
-          </div>
-          
-          <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-500 mb-8 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse"></span>
-            Upcoming Match
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 items-start">
-            <div className="space-y-1 md:border-r border-zinc-800">
-              <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Venue</p>
-              <p className="text-2xl font-black uppercase tracking-tight">Uliyathadkka Turf</p>
-            </div>
-            
-            <div className="space-y-1 md:border-r border-zinc-800 md:pl-6">
-              <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Kickoff</p>
-              <p className="text-2xl font-black uppercase tracking-tight">Sunday</p>
-              <p className="text-xl font-bold text-[#ccff00]">6:00 PM</p>
-            </div>
-            
-            <div className="space-y-1 md:pl-6">
-              <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Players Joined</p>
-              <div className="flex items-baseline gap-2">
-                <p className="text-4xl font-black tracking-tighter">18</p>
-                <p className="text-xl font-bold text-zinc-600">/ 24</p>
-              </div>
-              <div className="w-full bg-zinc-900 h-2 rounded-full mt-3 overflow-hidden">
-                <div className="bg-[#ccff00] h-full rounded-full w-[75%]"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  <MatchCard />
+</section>
 
       {/* 3. How It Works Section */}
       <section id="about" className="py-24 px-4 max-w-6xl mx-auto w-full">
