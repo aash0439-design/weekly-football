@@ -31,3 +31,40 @@ export async function registerPlayer(
 
   return data;
 }
+export async function joinMatch(
+  matchId: string,
+  playerId: string
+) {
+  const { data, error } = await supabase
+    .from("match_registrations")
+    .insert({
+      match_id: matchId,
+      player_id: playerId,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error joining match:", error);
+    throw error;
+  }
+
+  return data;
+}
+export async function isPlayerJoined(
+  matchId: string,
+  playerId: string
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("match_registrations")
+    .select("id")
+    .eq("match_id", matchId)
+    .eq("player_id", playerId)
+    .maybeSingle();
+
+  if (error) {
+    throw error;
+  }
+
+  return !!data;
+}

@@ -1,8 +1,13 @@
-import { getLatestMatch } from "@/services/matchService";
+import {
+  getLatestMatch,
+  getJoinedPlayersCount,
+} from "@/services/matchService";
 
 export default async function MatchCard() {
   const match = await getLatestMatch();
-
+const joinedPlayers = match
+  ? await getJoinedPlayersCount(match.id)
+  : 0;
   if (!match) {
     return (
       <div className="bg-[#111111] border border-zinc-800 rounded-3xl p-8 md:p-10 relative overflow-hidden backdrop-blur-sm shadow-2xl min-h-[200px] flex flex-col justify-center items-center">
@@ -55,13 +60,19 @@ export default async function MatchCard() {
         
         {/* Capacity */}
         <div className="space-y-1 md:pl-2">
-          <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold">Capacity</p>
-          <div className="flex items-baseline gap-2 mt-1">
-            <p className="text-4xl font-black tracking-tighter text-white leading-none">
-              {match.max_players ?? 'TBD'}
-            </p>
-            {match.max_players && <p className="text-lg font-bold text-zinc-600">Max</p>}
-          </div>
+          <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold">
+  Players Joined
+</p>
+
+<div className="flex items-baseline gap-2 mt-1">
+  <p className="text-4xl font-black tracking-tighter text-white leading-none">
+    {joinedPlayers}
+  </p>
+
+  <p className="text-lg font-bold text-zinc-600">
+    / {match.max_players}
+  </p>
+</div>
         </div>
 
       </div>

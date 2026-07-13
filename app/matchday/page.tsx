@@ -1,7 +1,17 @@
-import { getLatestMatch } from "@/services/matchService";
+import {matchregistration} from "@/types/registration";
+import MatchdayClient from "@/components/match/MatchdayClient";
+import { getPlayers } from "@/services/playerService";
+import {
+  getLatestMatch,
+  getJoinedPlayers,
+} from "@/services/matchService";
 
 export default async function MatchdayPage() {
   const match = await getLatestMatch();
+  const joinedPlayers = match
+  ? await getJoinedPlayers(match.id)
+  : [];
+  const players = await getPlayers();
 
   return (
     <main className="min-h-screen bg-black text-white font-sans selection:bg-[#ccff00] selection:text-black py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
@@ -87,18 +97,50 @@ export default async function MatchdayPage() {
               </div>
 
             </div>
+            {/* Registered Players */}
+
+<div className="pt-8 mt-8 border-t border-zinc-800">
+  <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-500 mb-4">
+    Registered Players
+  </h3>
+
+  {joinedPlayers.length === 0 ? (
+    <p className="text-zinc-500 text-sm">
+      No players have joined yet.
+    </p>
+  ) : (
+    <div className="space-y-3">
+      {joinedPlayers.map((registration: Matchregistration) => (
+        <div
+          key={registration.player.id}
+          className="flex items-center justify-between rounded-xl border border-zinc-800 bg-black px-4 py-3"
+        >
+          <div>
+            <p className="font-bold text-white">
+              {registration.player.full_name}
+            </p>
+
+            <p className="text-xs uppercase tracking-widest text-zinc-500">
+              {registration.player.primary_position}
+            </p>
+          </div>
+
+          <div className="text-[#ccff00] font-black">
+            ✓
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
 
             {/* Action Button */}
             <div className="pt-10 mt-8 border-t border-zinc-800">
-              <button
-                type="button"
-                className="w-full bg-[#ccff00] text-black font-black uppercase tracking-widest py-5 rounded-xl hover:bg-[#b3e600] transition-all transform active:scale-95 shadow-[0_0_20px_rgba(204,255,0,0.15)] hover:shadow-[0_0_30px_rgba(204,255,0,0.25)] flex justify-center items-center gap-2"
-              >
-                Join Match
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-              </button>
+             <MatchdayClient
+  matchId={match.id}
+  players={players}
+  status={match.status}
+/>
             </div>
             
           </div>

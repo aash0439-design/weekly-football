@@ -55,10 +55,9 @@ export default function RegisterPage() {
         jersey_number: "",
         skill_level: "",
       });
-    } catch (error: any) {
-      console.error("Error inserting player:", error);
-      setErrorMsg(error.message || "Something went wrong. Please try again.");
-    } finally {
+    }catch (error: unknown) {
+  console.error(error);
+} finally {
       setIsSubmitting(false);
     }
   };
