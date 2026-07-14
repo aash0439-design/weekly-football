@@ -1,15 +1,22 @@
+import DeleteMatchButton from "@/components/organizer/DeleteMatchButton";
+import EditMatchModal from "@/components/organizer/EditMatchModal";
 import MatchActions from "@/components/organizer/MatchActions";
+import RegisteredPlayers from "@/components/organizer/RegisteredPlayers";
+import TeamGenerator from "@/components/organizer/TeamGenerator";
 import {
   getLatestMatch,
   getJoinedPlayersCount,
+  getJoinedPlayers,
 } from "@/services/matchService";
 
 export default async function MatchesPage() {
   const match = await getLatestMatch();
-
-  const joinedCount = match
-    ? await getJoinedPlayersCount(match.id)
-    : 0;
+const joinedCount = match
+  ? await getJoinedPlayersCount(match.id)
+  : 0;
+  const joinedPlayers = match
+  ? await getJoinedPlayers(match.id)
+  : [];
 
   return (
     <main className="min-h-screen bg-black text-white py-12 px-4">
@@ -62,7 +69,33 @@ export default async function MatchesPage() {
               </div>
             </div>
 
-           <MatchActions matchId={match.id} />
+           <div className="mt-8 flex flex-wrap gap-4">
+
+  <div className="mt-8 flex flex-wrap gap-4">
+
+  <MatchActions
+    matchId={match.id}
+    status={match.status}
+  />
+
+  <EditMatchModal
+    match={match}
+  />
+
+  <DeleteMatchButton
+    matchId={match.id}
+  />
+
+</div>
+
+</div>
+<RegisteredPlayers
+  matchId={match.id}
+  players={joinedPlayers.map((registration: any) => registration.player)}
+/>
+<TeamGenerator
+  players={joinedPlayers.map((registration: any) => registration.player)}
+/>
           </>
         )}
       </div>

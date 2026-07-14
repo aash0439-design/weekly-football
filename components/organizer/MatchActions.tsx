@@ -1,39 +1,57 @@
 "use client";
 
 import { useTransition } from "react";
-import { closeRegistration } from "@/services/matchService";
+import {
+  closeRegistration,
+  reopenRegistration,
+} from "@/services/matchService";
 
 interface MatchActionsProps {
   matchId: string;
+  status: string;
 }
 
 export default function MatchActions({
   matchId,
+  status,
 }: MatchActionsProps) {
   const [isPending, startTransition] = useTransition();
 
   async function handleCloseRegistration() {
-    startTransition(async () => {
-      try {
-        console.log("Match ID received:", matchId);
+  startTransition(async () => {
+    try {
+      await closeRegistration(matchId);
 
-const result = await closeRegistration(matchId);
+      alert("✅ Registration closed successfully!");
 
-console.log("Result:", result);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
 
-alert("✅ Registration closed successfully!");
+      alert("❌ Failed to close registration.");
+    }
+  });
+}
 
-        window.location.reload();
-      } catch (error) {
-        console.error(error);
+async function handleReopenRegistration() {
+  startTransition(async () => {
+    try {
+      await reopenRegistration(matchId);
 
-        alert("❌ Failed to close registration.");
-      }
-    });
-  }
+      alert("✅ Registration reopened!");
+
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+
+      alert("❌ Failed to reopen registration.");
+    }
+  });
+}
 
   return (
-    <div className="mt-8 flex flex-wrap gap-4">
+  <div className="mt-8 flex flex-wrap gap-4">
+    {status === "Open" ? (
       <button
         onClick={handleCloseRegistration}
         disabled={isPending}
@@ -41,6 +59,15 @@ alert("✅ Registration closed successfully!");
       >
         {isPending ? "Closing..." : "Close Registration"}
       </button>
-    </div>
-  );
+    ) : (
+      <button
+        onClick={handleReopenRegistration}
+        disabled={isPending}
+        className="rounded-xl bg-blue-500 px-6 py-3 font-black uppercase text-white transition hover:bg-blue-600 disabled:opacity-50"
+      >
+        {isPending ? "Reopening..." : "Reopen Registration"}
+      </button>
+    )}
+  </div>
+);
 }

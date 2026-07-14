@@ -75,3 +75,67 @@ export async function closeRegistration(matchId: string) {
 
   return data;
 }
+export async function reopenRegistration(matchId: string) {
+  const { data, error } = await supabase
+    .from("matches")
+    .update({
+      status: "Open",
+    })
+    .eq("id", matchId)
+    .select();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+export async function removePlayerFromMatch(
+  matchId: string,
+  playerId: string
+) {
+  const { error } = await supabase
+    .from("match_registrations")
+    .delete()
+    .eq("match_id", matchId)
+    .eq("player_id", playerId);
+
+  if (error) {
+    throw error;
+  }
+}
+export async function updateMatch(
+  matchId: string,
+  updates: {
+    title: string;
+    venue: string;
+    match_date: string;
+    kickoff_time: string;
+    max_players: number;
+  }
+) {
+  const { data, error } = await supabase
+    .from("matches")
+    .update(updates)
+    .eq("id", matchId)
+    .select();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+export async function deleteMatch(matchId: string) {
+  const { data, error } = await supabase
+    .from("matches")
+    .delete()
+    .eq("id", matchId)
+    .select();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
