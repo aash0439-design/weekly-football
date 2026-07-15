@@ -1,3 +1,4 @@
+import LogoutButton from "@/components/organizer/LogoutButton";
 import {
   getLatestMatch,
   getJoinedPlayersCount,
@@ -14,15 +15,19 @@ const joinedCount = match
     <main className="min-h-screen bg-black text-white py-12 px-4">
       <div className="max-w-5xl mx-auto">
 
-        <div className="mb-10">
-          <h1 className="text-5xl font-black uppercase">
-            Organizer <span className="text-[#ccff00]">Dashboard</span>
-          </h1>
+        <div className="mb-10 flex items-start justify-between">
+  <div>
+    <h1 className="text-5xl font-black uppercase">
+      Organizer <span className="text-[#ccff00]">Dashboard</span>
+    </h1>
 
-          <p className="text-zinc-500 uppercase tracking-widest mt-3">
-            Manage your football community.
-          </p>
-        </div>
+    <p className="text-zinc-500 uppercase tracking-widest mt-3">
+      Manage your football community.
+    </p>
+  </div>
+
+  <LogoutButton />
+</div>
 {match && (
   <div className="mb-10 rounded-3xl border border-zinc-800 bg-[#111111] p-8">
 
