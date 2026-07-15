@@ -94,6 +94,7 @@ export async function removePlayerFromMatch(
   matchId: string,
   playerId: string
 ) {
+  // Remove player
   const { error } = await supabase
     .from("match_registrations")
     .delete()
@@ -103,6 +104,44 @@ export async function removePlayerFromMatch(
   if (error) {
     throw error;
   }
+
+  // Get match details
+  const { data: match, error: matchError } = await supabase
+    .from("matches")
+    .select("status, max_players")
+    .eq("id", matchId)
+    .single();
+
+  if (matchError) {
+    throw matchError;
+  }
+
+  // Count remaining players
+  const { count, error: countError } = await supabase
+    .from("match_registrations")
+    .select("*", {
+      count: "exact",
+      head: true,
+    })
+    .eq("match_id", matchId);
+
+  if (countError) {
+    throw countError;
+  }
+
+  // Reopen automatically if it was Full
+  if (
+    match.status === "Full" &&
+    (count ?? 0) < (match.max_players ?? Infinity)
+  ) {
+    await supabase
+      .from("matches")
+      .update({
+        status: "Open",
+      })
+      .eq("id", matchId);
+  }
+
 }
 export async function updateMatch(
   matchId: string,

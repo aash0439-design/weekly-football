@@ -69,7 +69,7 @@ export async function joinMatch(
     match.max_players !== null &&
     (count ?? 0) >= match.max_players
   ) {
-    throw new Error("This match is full.");
+    throw new Error("MATCH_FULL");
   }
 
   // Register the player

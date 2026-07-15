@@ -54,9 +54,21 @@ async function handleJoin() {
     setSelectedPlayerId(null);
     onClose();
 
-  } catch (error) {
-    console.error(error);
-    alert("Something went wrong.");
+  } catch (error: any) {
+  console.error(error);
+
+  if (error.message === "MATCH_FULL") {
+    alert("⚽ This match is full.");
+    return;
+  }
+
+  if (error.message === "Registration is closed.") {
+    alert("🚫 Registration has been closed.");
+    return;
+  }
+
+  alert("Something went wrong.");
+
   }
 }
 
