@@ -42,10 +42,11 @@ export async function getJoinedPlayers(matchId: string) {
     .from("match_registrations")
     .select(`
       player:players (
-        id,
-        full_name,
-        primary_position
-      )
+  id,
+  full_name,
+  primary_position,
+  skill_level
+)
     `)
     .eq("match_id", matchId);
 

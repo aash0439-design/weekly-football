@@ -122,15 +122,18 @@ const joinedCount = match
             </p>
           </Link>
 
-          <div className="rounded-3xl border border-zinc-800 bg-[#111111] p-8 opacity-60">
-            <h2 className="text-2xl font-black">
-              Generate Teams
-            </h2>
+          <Link
+  href="/organizer/cup"
+  className="rounded-3xl border border-zinc-800 bg-[#111111] p-8 hover:border-[#ccff00] transition"
+>
+  <h2 className="text-2xl font-black">
+    Weekly Footy Cup
+  </h2>
 
-            <p className="mt-2 text-zinc-500">
-              Coming Soon 🚀
-            </p>
-          </div>
+  <p className="mt-2 text-zinc-500">
+    Manage tournaments and league cups.
+  </p>
+</Link>
 
         </div>
       </div>
