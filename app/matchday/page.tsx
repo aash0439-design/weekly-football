@@ -1,4 +1,4 @@
-import {matchregistration} from "@/types/registration";
+import { Matchregistration } from "@/types/registration";
 import MatchdayClient from "@/components/match/MatchdayClient";
 import { getPlayers } from "@/services/playerService";
 import {
@@ -110,26 +110,34 @@ export default async function MatchdayPage() {
     </p>
   ) : (
     <div className="space-y-3">
-      {joinedPlayers.map((registration: Matchregistration) => (
-        <div
-          key={registration.player.id}
-          className="flex items-center justify-between rounded-xl border border-zinc-800 bg-black px-4 py-3"
-        >
-          <div>
-            <p className="font-bold text-white">
-              {registration.player.full_name}
-            </p>
+      {joinedPlayers.map((registration) => {
+        const player = Array.isArray(registration.player)
+          ? registration.player[0]
+          : registration.player;
 
-            <p className="text-xs uppercase tracking-widest text-zinc-500">
-              {registration.player.primary_position}
-            </p>
-          </div>
+        if (!player) return null;
 
-          <div className="text-[#ccff00] font-black">
-            ✓
+        return (
+          <div
+            key={player.id}
+            className="flex items-center justify-between rounded-xl border border-zinc-800 bg-black px-4 py-3"
+          >
+            <div>
+              <p className="font-bold text-white">
+                {player.full_name}
+              </p>
+
+              <p className="text-xs uppercase tracking-widest text-zinc-500">
+                {player.primary_position}
+              </p>
+            </div>
+
+            <div className="text-[#ccff00] font-black">
+              ✓
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   )}
 </div>

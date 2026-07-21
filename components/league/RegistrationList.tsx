@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { joinLeague } from "@/services/cupRegistrationService";
+import { joinCup } from "@/services/cupRegistrationService";
 
 interface Player {
   id: string;
@@ -25,7 +25,7 @@ export default function RegistrationList({
     try {
       setLoadingId(playerId);
 
-      await joinLeague(leagueId, playerId);
+      await joinCup(leagueId, playerId);
 
       alert("✅ Registered successfully!");
 

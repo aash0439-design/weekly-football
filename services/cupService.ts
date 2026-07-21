@@ -33,6 +33,6 @@ export async function getLatestCup() {
   return data;
 }
 export {
-  getLeaguePlayers,
-  getLeaguePlayerCount,
+  getCupPlayers,
+  getCupPlayerCount,
 } from "./cupRegistrationService";
