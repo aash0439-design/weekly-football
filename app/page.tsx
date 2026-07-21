@@ -1,11 +1,15 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import Footer from "@/components/landing/Footer";
 import CommunityGallery from "@/components/landing/CommunityGallery";
 import { communityGalleryPhotos } from "@/components/landing/communityGalleryData";
 import Navbar from "@/components/landing/Navbar";
-import ScrollReveal from "@/components/landing/ScrollReveal";
 import MatchCard from "@/components/match/MatchCard";
+
+function ScrollReveal({ children, className }: { children: ReactNode; className?: string; delay?: number }) {
+  return <div className={className}>{children}</div>;
+}
 
 const seasonStats = [
   { value: "120+", label: "active players" },

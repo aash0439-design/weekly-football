@@ -3,7 +3,15 @@
 import { useEffect, useState } from "react";
 
 import ScrollReveal from "@/components/landing/ScrollReveal";
-import type { CommunityGalleryPhoto } from "@/components/landing/communityGalleryData";
+
+// Local type for CommunityGalleryPhoto to avoid module resolution issues
+type CommunityGalleryPhoto = {
+  id: string;
+  src: string;
+  alt: string;
+  title: string;
+  detail?: string;
+};
 
 type CommunityGalleryProps = {
   photos: CommunityGalleryPhoto[];
